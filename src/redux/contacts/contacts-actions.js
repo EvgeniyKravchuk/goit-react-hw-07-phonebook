@@ -1,4 +1,4 @@
-// import { createAction } from "@reduxjs/toolkit";
+import { createAction } from "@reduxjs/toolkit";
 
 // export const fetchContactsRequest = createAction(
 //   "contacts/fetchContactsRequest"
@@ -8,4 +8,4 @@
 // );
 // export const fetchContactsError = createAction("contacts/fetchContactsError");
 
-// export const changeFilter = createAction("contacts/changeFilter");
+export const changeFilter = createAction("contacts/changeFilter");

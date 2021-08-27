@@ -4,12 +4,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { Input, Label, Button, Form } from "./ContactForm.styled";
 import { dispatchFetchContacts } from "../../redux/contacts/contacts-operations";
 import { postContact } from "../../API/api-operations";
+import { getContacts } from "../../redux/contacts/contacts-selectors";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
-  const contacts = useSelector((state) => state.contacts.items);
+  const state = useSelector((state) => state);
+  const contacts = getContacts(state);
+
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
@@ -75,8 +78,3 @@ export default function ContactForm() {
     </Form>
   );
 }
-
-// ContactForm.propTypes = {
-//   addContact: PropTypes.func.isRequired,
-//   contacts: PropTypes.array.isRequired,
-// };

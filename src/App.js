@@ -1,5 +1,4 @@
 import "./App.module.css";
-// import { useEffect } from "react";
 import { Wrapper, Title } from "./components/General.styled";
 import ContactForm from "./components/contactForm/ContactForm";
 import ContactsList from "./components/contactsList/ContactsList";
