@@ -1,6 +1,8 @@
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contacts/contacts-actions";
+import { dispatchFetchContacts } from "../../redux/contacts/contacts-operations";
+import { deleteContact } from "../../API/api-operations";
 import { List, Item, Button } from "./ContaxList.styled";
 
 export default function ContactsList() {
@@ -9,7 +11,15 @@ export default function ContactsList() {
   );
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(dispatchFetchContacts());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function filterElements(contacts, filterValue) {
+    if (contacts.length === 0) {
+      return [];
+    }
     return contacts.filter((contact) => {
       return contact.name.toLowerCase().includes(filterValue.toLowerCase());
     });
@@ -23,7 +33,10 @@ export default function ContactsList() {
             {contact.name}: {contact.number}
             <Button
               id={contact.id}
-              onClick={(evt) => dispatch(deleteContact(evt.currentTarget.id))}
+              onClick={(evt) => {
+                deleteContact(evt.currentTarget.id);
+                dispatch(dispatchFetchContacts());
+              }}
             >
               <FaRegTrashAlt />
             </Button>

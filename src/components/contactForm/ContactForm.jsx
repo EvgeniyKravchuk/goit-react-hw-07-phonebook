@@ -2,7 +2,8 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, Label, Button, Form } from "./ContactForm.styled";
-import { addContact } from "../../redux/contacts/contacts-actions.js";
+import { dispatchFetchContacts } from "../../redux/contacts/contacts-operations";
+import { postContact } from "../../API/api-operations";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -26,7 +27,9 @@ export default function ContactForm() {
     } else if (name === "" || number === "") {
       return alert("Пожалуйста, введите Имя и номер.");
     } else {
-      dispatch(addContact(contact));
+      postContact(contact);
+      dispatch(dispatchFetchContacts());
+
       clear();
     }
   };
