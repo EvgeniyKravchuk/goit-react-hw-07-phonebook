@@ -5,32 +5,23 @@ import { dispatchFetchContacts } from "../../redux/contacts/contacts-operations"
 import { deleteContact } from "../../API/api-operations";
 import { List, Item, Button } from "./ContaxList.styled";
 import {
-  getContacts,
   getFilter,
   getIsLoading,
+  getFilteredContacts,
 } from "../../redux/contacts/contacts-selectors";
 
 export default function ContactsList() {
   const state = useSelector((state) => state);
-  const contacts = getContacts(state);
   const filter = getFilter(state);
   const isLoading = getIsLoading(state);
-  const filteredContacts = filterElements(contacts, filter);
+  const filteredContacts = getFilteredContacts(state, filter);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(dispatchFetchContacts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  function filterElements(contacts, filterValue) {
-    if (contacts.length === 0) {
-      return [];
-    }
-    return contacts.filter((contact) => {
-      return contact.name.toLowerCase().includes(filterValue.toLowerCase());
-    });
-  }
 
   return (
     <>
